@@ -9,35 +9,39 @@ MANDREL_JDK=${MANDREL_SDK:-./mandrelJDK}
 
 ### Copy default JDK
 rm -rf ${MANDREL_JDK}
-cp -r ${JAVA_HOME} ${MANDREL_JDK}
+cp -pr ${JAVA_HOME} ${MANDREL_JDK}
 
 ### Copy needed jars
 mkdir ${MANDREL_JDK}/lib/svm
-cp ${GRAAL_REPO}/substratevm/mxbuild/dists/jdk1.8/library-support.jar ${MANDREL_JDK}/lib/svm
+# cp ${GRAAL_REPO}/substratevm/mxbuild/dists/jdk1.8/library-support.jar ${MANDREL_JDK}/lib/svm
 
 mkdir ${MANDREL_JDK}/lib/svm/builder
 cp ${GRAAL_REPO}/substratevm/mxbuild/dists/jdk11/{svm,pointsto}.jar ${MANDREL_JDK}/lib/svm/builder
+# cp ~/Downloads/svm-19.3.1.redhat-00010.jar ${MANDREL_JDK}/lib/svm/builder/svm.jar
+# cp ~/Downloads/pointsto-19.3.1.redhat-00010.jar ${MANDREL_JDK}/lib/svm/builder/pointsto.jar
 cp ${GRAAL_REPO}/substratevm/mxbuild/dists/jdk1.8/objectfile.jar ${MANDREL_JDK}/lib/svm/builder
 
 mkdir ${MANDREL_JDK}/languages
-cp ${GRAAL_REPO}/truffle/mxbuild/dists/jdk11/truffle-nfi.jar ${MANDREL_JDK}/languages
+# cp ${GRAAL_REPO}/truffle/mxbuild/dists/jdk11/truffle-nfi.jar ${MANDREL_JDK}/languages
 
 mkdir ${MANDREL_JDK}/lib/graalvm
 cp ${GRAAL_REPO}/substratevm/mxbuild/dists/jdk1.8/svm-driver.jar ${MANDREL_JDK}/lib/graalvm
 
 ## The following jars are not included in the GraalJDK created by `mx --components="Native Image" build`
 mkdir ${MANDREL_JDK}/lib/jvmci
-cp ${GRAAL_REPO}/sdk/mxbuild/dists/jdk11/graal-sdk.jar ${MANDREL_JDK}/lib/jvmci
+# cp ${GRAAL_REPO}/sdk/mxbuild/dists/jdk11/graal-sdk.jar ${MANDREL_JDK}/lib/jvmci
+cp ~/Downloads/graal-sdk-19.3.1.redhat-00010.jar ${MANDREL_JDK}/lib/jvmci/graal-sdk.jar
 cp ${GRAAL_REPO}/compiler/mxbuild/dists/jdk11/graal.jar ${MANDREL_JDK}/lib/jvmci
+# cp ~/Downloads/compiler-19.3.1.redhat-00010.jar ${MANDREL_JDK}/lib/jvmci/graal.jar
 
 mkdir ${MANDREL_JDK}/lib/truffle
-cp ${GRAAL_REPO}/truffle/mxbuild/dists/jdk11/truffle-api.jar ${MANDREL_JDK}/lib/truffle
+# cp ${GRAAL_REPO}/truffle/mxbuild/dists/jdk11/truffle-api.jar ${MANDREL_JDK}/lib/truffle
+cp ~/Downloads/truffle-api-19.3.1.redhat-00010.jar ${MANDREL_JDK}/lib/truffle/truffle-api.jar
 
 
 ### Copy native bits
 mkdir -p ${MANDREL_JDK}/lib/svm/clibraries/linux-amd64/include
-cp ${GRAAL_REPO}/substratevm/src/com.oracle.svm.native.libchelper/include/amd64cpufeatures.h ${MANDREL_JDK}/lib/svm/clibraries/linux-amd64/include
-cp ${GRAAL_REPO}/substratevm/src/com.oracle.svm.native.libchelper/include/aarch64cpufeatures.h ${MANDREL_JDK}/lib/svm/clibraries/linux-amd64/include
+cp ${GRAAL_REPO}/substratevm/src/com.oracle.svm.native.libchelper/include/cpufeatures.h ${MANDREL_JDK}/lib/svm/clibraries/linux-amd64/include
 cp ${GRAAL_REPO}/substratevm/src/com.oracle.svm.libffi/include/svm_libffi.h ${MANDREL_JDK}/lib/svm/clibraries/linux-amd64/include
 cp ${GRAAL_REPO}/truffle/src/com.oracle.truffle.nfi.native/include/trufflenfi.h ${MANDREL_JDK}/lib/svm/clibraries/linux-amd64/include
 cp ${GRAAL_REPO}/substratevm/mxbuild/linux-amd64/src/com.oracle.svm.native.libchelper/amd64/liblibchelper.a ${MANDREL_JDK}/lib/svm/clibraries/linux-amd64
