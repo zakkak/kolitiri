@@ -41,8 +41,9 @@ cp ${GRAAL_REPO}/substratevm/src/com.oracle.svm.native.libchelper/include/aarch6
 cp ${GRAAL_REPO}/substratevm/src/com.oracle.svm.libffi/include/svm_libffi.h ${MANDREL_JDK}/lib/svm/clibraries/linux-amd64/include
 cp ${GRAAL_REPO}/truffle/src/com.oracle.truffle.nfi.native/include/trufflenfi.h ${MANDREL_JDK}/lib/svm/clibraries/linux-amd64/include
 cp ${GRAAL_REPO}/substratevm/mxbuild/linux-amd64/src/com.oracle.svm.native.libchelper/amd64/liblibchelper.a ${MANDREL_JDK}/lib/svm/clibraries/linux-amd64
-## FIXME: we probably don't want to use the custom libjvm.a
 cp ${GRAAL_REPO}/substratevm/mxbuild/linux-amd64/src/com.oracle.svm.native.jvm.posix/amd64/libjvm.a ${MANDREL_JDK}/lib/svm/clibraries/linux-amd64
+## TODO: consider using libm instead of fdlibm/strictmath.a?
+cp ${GRAAL_REPO}/substratevm/mxbuild/linux-amd64/src/com.oracle.svm.native.strictmath/amd64/libstrictmath.a ${MANDREL_JDK}/lib/svm/clibraries/linux-amd64
 
 ### Fix native-image launcher
 mkdir ${MANDREL_JDK}/lib/svm/bin
