@@ -47,16 +47,7 @@ cp ${GRAAL_REPO}/substratevm/mxbuild/linux-amd64/src/com.oracle.svm.native.stric
 
 ### Fix native-image launcher
 mkdir ${MANDREL_JDK}/lib/svm/bin
-cp ${GRAAL_REPO}/sdk/mx.sdk/vm/launcher_template.sh ${MANDREL_JDK}/lib/svm/bin/native-image
-
-### TODO: Add Red Hat, Inc. copyright?
-sed -i -e 's!<year>!'$(date +%Y)'!'\
-    -e 's!<classpath>!../../../languages/nfi/truffle-nfi.jar:../builder/svm.jar:../library-support.jar:../builder/pointsto.jar:../../graalvm/svm-driver.jar:../builder/objectfile.jar!' \
-    -e 's!<jre_bin>!../../../bin!' \
-    -e 's!<extra_jvm_args>!--add-exports=java.base/jdk.internal.module=ALL-UNNAMED -XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCI --upgrade-module-path ${location}/../../jvmci/graal.jar --add-modules "org.graalvm.truffle,org.graalvm.sdk" --module-path ${location}/../../truffle/truffle-api.jar:${location}/../../jvmci/graal-sdk.jar!' \
-    -e 's!<main_class>!com.oracle.svm.driver.NativeImage$JDK9Plus!' ${MANDREL_JDK}/lib/svm/bin/native-image
-chmod +x ${MANDREL_JDK}/lib/svm/bin/native-image
+cp ${GRAAL_REPO}/sdk/mxbuild/linux-amd64/native-image.image-bash/native-image ${MANDREL_JDK}/lib/svm/bin/native-image
 
 ## Create symbolic link in bin
 ln -s ../lib/svm/bin/native-image ${MANDREL_JDK}/bin/native-image
-chmod +x ${MANDREL_JDK}/bin/native-image
